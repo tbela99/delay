@@ -1,0 +1,1 @@
+add delayed each loop to Object and Array prototype
