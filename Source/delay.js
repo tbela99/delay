@@ -14,7 +14,16 @@ Object.extend('eachDelay', function (object, fn, delay, bind) {
 	for (var key in object) if (object.hasOwnProperty(key)) fn.delay(delay, bind, [object[key], key, object])
 });
 
-Array.implement({eachDelay: function (fn, delay, bind) {
+Array.implement({
 
-	for(var i = 0; i < this.length; i++) fn.delay(delay, bind, [this[i], i, this])
-}});
+	invokeDelay: function(methodName, delay){
+
+		var args = Array.slice(arguments, 2);
+		for(var i = 0; i < this.length; i++) this[i][methodName].delay(delay, this[i], args)
+	},
+
+	eachDelay: function (fn, delay, bind) {
+
+		for(var i = 0; i < this.length; i++) fn.delay(delay, bind, [this[i], i, this])
+	}
+});
